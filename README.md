@@ -30,16 +30,21 @@ Example simulations are provided as Jupyter notebooks
 Include gravity, but no damping or springs
 
 [example_open_loop.ipynb](examples/example_open_loop.ipynb)
+
 ![example_open_loop.gif](animation/example_open_loop.gif)
 
 ### With model predictive control (MPC)
 
 Precisely control the movement of the base, and the 1st segment angle, but leave the 2nd segment able under open-loop control. Damping and springs are on. See [pybounds](https://github.com/vanbreugel-lab/pybounds) for MPC guidance.
 
+[example_model_predictive_control.ipynb](examples/example_model_predictive_control.ipynb)
+
 ![example_model predictive_control.gif](animation/example_model%20predictive_control.gif)
 
 ### With model predictive control + wind
 
 Keep the base and 1st segment angle constant and let the wind move the 2nd segment. Damping and springs are on.
+
+[example_model_predictive_control_wind.ipynb](examples/example_model_predictive_control_wind.ipynb)
 
 ![example_model predictive_control_wind.gif](animation/example_model%20predictive_control_wind.gif)
