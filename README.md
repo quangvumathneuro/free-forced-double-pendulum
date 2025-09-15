@@ -13,6 +13,7 @@ The dynamics equations of motion are derived symbolically via Lagrangian mechani
 [dynamics/free_forced_rigid_double_pendulum_with_wind_dynamics.mlx](dynamics/free_forced_rigid_double_pendulum_with_wind_dynamics.mlx)
 
 The derivation code is designed to be easily modifiable. If one wishes to change certain model properties (for instance make damping proportion to velocity squared, etc.) the code can be modified and re-run.
+The derivation code is designed to be easily modifiable. If one wishes to change certain model properties (for instance make damping proportion to velocity squared, etc.) the code can be modified and re-run.
 
 ## Model simulation & control
 The final output of the derivation code is the nonlinear state-space equations required to simulate the model, which can be copy-pasted for use with an ODE solver. The current dynamics are defined in the `DoublePendulumModel` class in [double_pendulum.py](model/double_pendulum.py) in the `f` method
@@ -37,7 +38,7 @@ Include gravity, but no damping or springs
 
 ### With model predictive control (MPC)
 
-Precisely control the movement of the base, and the 1st segment angle, but leave the 2nd segment able under open-loop control. Damping and springs are on. See [pybounds](https://github.com/vanbreugel-lab/pybounds) for MPC guidance.
+Precisely control the movement of the base, and the 1st segment angle, but leave the 2nd segment under open-loop control. Damping and springs are on. See [pybounds](https://github.com/vanbreugel-lab/pybounds) for MPC guidance.
 
 [example_model_predictive_control.ipynb](examples/example_model_predictive_control.ipynb)
 
