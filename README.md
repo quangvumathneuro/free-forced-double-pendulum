@@ -15,7 +15,7 @@ The dynamics equations of motion are derived symbolically via Lagrangian mechani
 The derivation code is designed to be easily modifiable. If one wishes to change certain model properties (for instance make damping proportion to velocity squared, etc.) the code can be modified and re-run.
 
 ## Model simulation & control
-The final output of the derivation code is the nonlinear state-space equations required to simulate the model, which be copy-pasted for use with an ODE solver.
+The final output of the derivation code is the nonlinear state-space equations required to simulate the model, which can be copy-pasted for use with an ODE solver.
 
 This repository makes use of the ***pybounds*** Python package (https://github.com/vanbreugel-lab/pybounds) to simulate and control the derived dynamics. It is recommended to install pybounds from source:
 
@@ -31,9 +31,9 @@ Include gravity, but no damping or springs
 [example_open_loop.ipynb](examples/example_open_loop.ipynb)
 ![example_open_loop.gif](animation/example_open_loop.gif)
 
-### With model predictive control
+### With model predictive control (MPC)
 
-Precisely control the movement of the base, and the 1st segment angle, but leave the 2nd segment able under open-loop control. Damping and springs are on.
+Precisely control the movement of the base, and the 1st segment angle, but leave the 2nd segment able under open-loop control. Damping and springs are on. See [pybounds](https://github.com/BenCellini/free-forced-double-pendulum) for MPC guidance.
 
 ![example_model predictive_control.gif](animation/example_model%20predictive_control.gif)
 
