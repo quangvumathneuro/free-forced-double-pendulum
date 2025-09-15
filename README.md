@@ -13,7 +13,6 @@ The dynamics equations of motion are derived symbolically via Lagrangian mechani
 [dynamics/free_forced_rigid_double_pendulum_with_wind_dynamics.mlx](dynamics/free_forced_rigid_double_pendulum_with_wind_dynamics.mlx)
 
 The derivation code is designed to be easily modifiable. If one wishes to change certain model properties (for instance make damping proportion to velocity squared, etc.) the code can be modified and re-run.
-The derivation code is designed to be easily modifiable. If one wishes to change certain model properties (for instance make damping proportion to velocity squared, etc.) the code can be modified and re-run.
 
 ## Model simulation & control
 The final output of the derivation code is the nonlinear state-space equations required to simulate the model, which can be copy-pasted for use with an ODE solver. The current dynamics are defined in the `DoublePendulumModel` class in [double_pendulum.py](model/double_pendulum.py) in the `f` method
@@ -25,6 +24,8 @@ This repository makes use of the ***pybounds*** Python package (https://github.c
     pip install pandas
     pip install do-mpc
     pip install git+https://github.com/vanbreugel-lab/pybounds
+
+A nice feature of the simulation code is that it is easy to exclude certain parts of the dynamics by adjusting the model parameters. For instance, one can effectively turn off gravity, wind, given springs and dampers, etc., and even turn the double-pendulum into a single-pendulum by setting parameters to 0 accordingly.
 
 ## Example simulations
 Example simulations are provided as Jupyter notebooks
