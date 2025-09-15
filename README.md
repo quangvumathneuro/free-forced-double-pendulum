@@ -25,6 +25,7 @@ This repository makes use of the ***pybounds*** Python package (https://github.c
 
 ## Example simulations
 Example simulations are provided as Jupyter notebooks
+
 ### Simple open-loop 
 Include gravity, but no damping or springs
 
@@ -33,7 +34,7 @@ Include gravity, but no damping or springs
 
 ### With model predictive control (MPC)
 
-Precisely control the movement of the base, and the 1st segment angle, but leave the 2nd segment able under open-loop control. Damping and springs are on. See [pybounds](https://github.com/BenCellini/free-forced-double-pendulum) for MPC guidance.
+Precisely control the movement of the base, and the 1st segment angle, but leave the 2nd segment able under open-loop control. Damping and springs are on. See [pybounds](https://github.com/vanbreugel-lab/pybounds) for MPC guidance.
 
 ![example_model predictive_control.gif](animation/example_model%20predictive_control.gif)
 
