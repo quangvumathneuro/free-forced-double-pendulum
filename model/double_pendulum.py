@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib.patches import FancyArrow
 from numpy import sin, cos
 
+
 class DoublePendulumParameters:
     """ Stores pendulum parameters.
     """

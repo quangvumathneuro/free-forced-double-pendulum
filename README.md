@@ -15,7 +15,9 @@ The dynamics equations of motion are derived symbolically via Lagrangian mechani
 The derivation code is designed to be easily modifiable. If one wishes to change certain model properties (for instance make damping proportion to velocity squared, etc.) the code can be modified and re-run.
 
 ## Model simulation & control
-The final output of the derivation code is the nonlinear state-space equations required to simulate the model, which can be copy-pasted for use with an ODE solver.
+The final output of the derivation code is the nonlinear state-space equations required to simulate the model, which can be copy-pasted for use with an ODE solver. The current dynamics are defined in the `DoublePendulumModel` class inn= [double_pendulum.py](model/double_pendulum.py) in the `f` method
+
+<img src="dynamics/dynamics_python_snapshot.png" alt="drawing" width="400"/>
 
 This repository makes use of the ***pybounds*** Python package (https://github.com/vanbreugel-lab/pybounds) to simulate and control the derived dynamics. It is recommended to install pybounds from source:
 
@@ -31,7 +33,7 @@ Include gravity, but no damping or springs
 
 [example_open_loop.ipynb](examples/example_open_loop.ipynb)
 
-![example_open_loop.gif](animation/example_open_loop.gif)
+<img src="animation/example_open_loop.gif" alt="drawing" width="400"/>
 
 ### With model predictive control (MPC)
 
@@ -39,7 +41,7 @@ Precisely control the movement of the base, and the 1st segment angle, but leave
 
 [example_model_predictive_control.ipynb](examples/example_model_predictive_control.ipynb)
 
-![example_model predictive_control.gif](animation/example_model%20predictive_control.gif)
+<img src="animation/example_model predictive_control.gif" alt="drawing" width="400"/>
 
 ### With model predictive control + wind
 
@@ -47,4 +49,4 @@ Keep the base and 1st segment angle constant and let the wind move the 2nd segme
 
 [example_model_predictive_control_wind.ipynb](examples/example_model_predictive_control_wind.ipynb)
 
-![example_model predictive_control_wind.gif](animation/example_model%20predictive_control_wind.gif)
+<img src="animation/example_model predictive_control_wind.gif" alt="drawing" width="400"/>
