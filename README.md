@@ -1,5 +1,5 @@
 # free-forced-double-pendulum
-Derivation and simulation, and control of the dynamics of a rigid-body double pendulum with a moving base, control torques, and an external wind force. 
+Derivation, simulation, and control of a rigid-body double pendulum with a moving base, control torques, and an external wind force. 
 
 ## Model overview
 The model consists of a 2 DOF double pendulum, where the DOF are defined as the segment angles $\theta_1$ and $\theta_2$, respectively, in the global reference frame. The base of the first pendulum segment is defined by a time-varying position $\mathbf{r}_a = [x_a, y_a]$ that is modeled as an input (not a DOF).
