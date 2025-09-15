@@ -15,9 +15,9 @@ The dynamics equations of motion are derived symbolically via Lagrangian mechani
 The derivation code is designed to be easily modifiable. If one wishes to change certain model properties (for instance make damping proportion to velocity squared, etc.) the code can be modified and re-run.
 
 ## Model simulation & control
-The final output of the derivation code is the nonlinear state-space equations required to simulate the model, which can be copy-pasted for use with an ODE solver. The current dynamics are defined in the `DoublePendulumModel` class inn= [double_pendulum.py](model/double_pendulum.py) in the `f` method
+The final output of the derivation code is the nonlinear state-space equations required to simulate the model, which can be copy-pasted for use with an ODE solver. The current dynamics are defined in the `DoublePendulumModel` class in [double_pendulum.py](model/double_pendulum.py) in the `f` method
 
-<img src="dynamics/dynamics_python_snapshot.png" alt="drawing" width="400"/>
+<img src="dynamics/dynamics_python_snapshot.png" alt="drawing" width="500"/>
 
 This repository makes use of the ***pybounds*** Python package (https://github.com/vanbreugel-lab/pybounds) to simulate and control the derived dynamics. It is recommended to install pybounds from source:
 
