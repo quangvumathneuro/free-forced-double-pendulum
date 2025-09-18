@@ -6,7 +6,7 @@ The model consists of a 2 DOF double pendulum, where the DOF are defined as the 
 
 Each segment is modeled as a rigid-body with a length $L_\bullet$, mass $m_\bullet$, mass $m_\bullet$ and inertia $J_\bullet$. Additionally, each segment junction has a torsional stiffness $k_\bullet$ and damping $c_\bullet$. Torques acting on each segment $\tau_\bullet$ are also included to allow the module to be controlled, if desired. An external wind vector $\mathbf{w} = w \angle \zeta$ is modeled to create a force vector acting on the COM of each segment via damping $c_w$.
 
-<img src="dynamics/dynamics_diagram.png" alt="drawing" width="400"/>
+<img src="dynamics/dynamics_diagram.svg" alt="drawing" width="400"/>
 
 ## Model derivation
 The dynamics equations of motion are derived symbolically via Lagrangian mechanics in a MATLAB Live Script:
