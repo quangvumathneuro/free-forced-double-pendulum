@@ -1,4 +1,3 @@
-
 import numpy as np
 from matplotlib.patches import FancyArrow
 from numpy import sin, cos
@@ -314,3 +313,155 @@ class ArrowDrawer:
         dy = self.magnitude * np.cos(self.angle)
         return self.origin + np.array([dx, dy])
 
+class DualAntennaPendulumDrawer:
+    """
+    Draw two double pendulums (like fly antennae) sharing the same moving base.
+    Uses a single dot to represent the fly body instead of a connecting bar.
+    """
+
+    def __init__(self, base_x, base_y, 
+                 theta1_left, theta2_left, theta1_right, theta2_right,
+                 L1_left=1.0, L2_left=1.0, L1_right=1.0, L2_right=1.0,
+                 left_seg1_kwargs=None, left_seg2_kwargs=None,
+                 right_seg1_kwargs=None, right_seg2_kwargs=None,
+                 trail1_left=False, trail2_left=False, 
+                 trail1_right=False, trail2_right=False, 
+                 trail_base=False,
+                 antenna_separation=0.2,
+                 body_style='dot',  # NEW: 'dot', 'bar', or 'none'
+                 body_kwargs=None):  # NEW: styling for the body
+        
+        self.base_x = np.asarray(base_x)
+        self.base_y = np.asarray(base_y)
+        
+        # Left antenna
+        self.theta1_left = np.asarray(theta1_left)
+        self.theta2_left = np.asarray(theta2_left)
+        self.L1_left = L1_left
+        self.L2_left = L2_left
+        
+        # Right antenna
+        self.theta1_right = np.asarray(theta1_right)
+        self.theta2_right = np.asarray(theta2_right)
+        self.L1_right = L1_right
+        self.L2_right = L2_right
+        
+        self.antenna_separation = antenna_separation
+        self.trail1_left = trail1_left
+        self.trail2_left = trail2_left
+        self.trail1_right = trail1_right
+        self.trail2_right = trail2_right
+        self.trail_base = trail_base
+        
+        # NEW: Body styling options
+        self.body_style = body_style
+        default_body = dict(markersize=12, color='black', markerfacecolor='darkgray', 
+                           markeredgecolor='black', markeredgewidth=2)
+        self.body_kwargs = {**default_body, **(body_kwargs or {})}
+
+        # Default styling - make them look like antennae
+        default_left_seg1 = dict(linewidth=3, color="darkblue", markersize=6, markerfacecolor="black")
+        default_left_seg2 = dict(linewidth=2, color="blue", markersize=4, markerfacecolor="darkblue")
+        default_right_seg1 = dict(linewidth=3, color="darkred", markersize=6, markerfacecolor="black")
+        default_right_seg2 = dict(linewidth=2, color="red", markersize=4, markerfacecolor="darkred")
+
+        self.left_seg1_kwargs = {**default_left_seg1, **(left_seg1_kwargs or {})}
+        self.left_seg2_kwargs = {**default_left_seg2, **(left_seg2_kwargs or {})}
+        self.right_seg1_kwargs = {**default_right_seg1, **(right_seg1_kwargs or {})}
+        self.right_seg2_kwargs = {**default_right_seg2, **(right_seg2_kwargs or {})}
+
+        # Compute antenna base positions (offset from main base)
+        self.base_x_left = self.base_x - self.antenna_separation / 2
+        self.base_y_left = self.base_y
+        self.base_x_right = self.base_x + self.antenna_separation / 2
+        self.base_y_right = self.base_y
+
+        # Compute joint positions for left antenna
+        self.x1_left = self.base_x_left + self.L1_left * np.sin(self.theta1_left)
+        self.y1_left = self.base_y_left + self.L1_left * np.cos(self.theta1_left)
+        self.x2_left = self.x1_left + self.L2_left * np.sin(self.theta2_left)
+        self.y2_left = self.y1_left + self.L2_left * np.cos(self.theta2_left)
+
+        # Compute joint positions for right antenna
+        self.x1_right = self.base_x_right + self.L1_right * np.sin(self.theta1_right)
+        self.y1_right = self.base_y_right + self.L1_right * np.cos(self.theta1_right)
+        self.x2_right = self.x1_right + self.L2_right * np.sin(self.theta2_right)
+        self.y2_right = self.y1_right + self.L2_right * np.cos(self.theta2_right)
+
+    def draw(self, ax, frame=-1):
+        """Draw both antennae at the given frame."""
+        if frame < 0:
+            frame = len(self.base_x) + frame
+
+        # Draw left antenna
+        x_seg1_left = [self.base_x_left[frame], self.x1_left[frame]]
+        y_seg1_left = [self.base_y_left[frame], self.y1_left[frame]]
+        ax.plot(x_seg1_left, y_seg1_left, 'o-', **self.left_seg1_kwargs)
+
+        x_seg2_left = [self.x1_left[frame], self.x2_left[frame]]
+        y_seg2_left = [self.y1_left[frame], self.y2_left[frame]]
+        ax.plot(x_seg2_left, y_seg2_left, 'o-', **self.left_seg2_kwargs)
+
+        # Draw right antenna
+        x_seg1_right = [self.base_x_right[frame], self.x1_right[frame]]
+        y_seg1_right = [self.base_y_right[frame], self.y1_right[frame]]
+        ax.plot(x_seg1_right, y_seg1_right, 'o-', **self.right_seg1_kwargs)
+
+        x_seg2_right = [self.x1_right[frame], self.x2_right[frame]]
+        y_seg2_right = [self.y1_right[frame], self.y2_right[frame]]
+        ax.plot(x_seg2_right, y_seg2_right, 'o-', **self.right_seg2_kwargs)
+
+        # NEW: Draw body based on style
+        if self.body_style == 'dot':
+            # Single dot at the center of the base
+            ax.plot(self.base_x[frame], self.base_y[frame], 'o', **self.body_kwargs)
+            
+        elif self.body_style == 'bar':
+            # Original connecting bar
+            ax.plot([self.base_x_left[frame], self.base_x_right[frame]], 
+                   [self.base_y_left[frame], self.base_y_right[frame]], 
+                   'o-', linewidth=4, color='black', markersize=8, markerfacecolor='gray')
+                   
+        elif self.body_style == 'none':
+            # No body representation
+            pass
+
+        # Trails
+        if self.trail1_left:
+            ax.plot(self.x1_left[:frame+1], self.y1_left[:frame+1],
+                    '-', lw=1, color=self.left_seg1_kwargs.get("color", "darkblue"), alpha=0.5)
+        if self.trail2_left:
+            ax.plot(self.x2_left[:frame+1], self.y2_left[:frame+1],
+                    '-', lw=1, color=self.left_seg2_kwargs.get("color", "blue"), alpha=0.5)
+        if self.trail1_right:
+            ax.plot(self.x1_right[:frame+1], self.y1_right[:frame+1],
+                    '-', lw=1, color=self.right_seg1_kwargs.get("color", "darkred"), alpha=0.5)
+        if self.trail2_right:
+            ax.plot(self.x2_right[:frame+1], self.y2_right[:frame+1],
+                    '-', lw=1, color=self.right_seg2_kwargs.get("color", "red"), alpha=0.5)
+        if self.trail_base:
+            ax.plot(self.base_x[:frame+1], self.base_y[:frame+1],
+                    '-', lw=1, color='black', alpha=0.5)
+
+    def get_axis_bounds(self, margin=0.1):
+        """Compute axis bounds for both antennae."""
+        xs = np.concatenate([
+            self.base_x_left, self.x1_left, self.x2_left,
+            self.base_x_right, self.x1_right, self.x2_right
+        ])
+        ys = np.concatenate([
+            self.base_y_left, self.y1_left, self.y2_left,
+            self.base_y_right, self.y1_right, self.y2_right
+        ])
+
+        xmin, xmax = xs.min(), xs.max()
+        ymin, ymax = ys.min(), ys.max()
+
+        x_range = xmax - xmin
+        y_range = ymax - ymin
+        xmin -= margin * x_range
+        xmax += margin * x_range
+        ymin -= margin * y_range
+        ymax += margin * y_range
+
+        return xmin, xmax, ymin, ymax
